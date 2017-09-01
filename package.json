@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall":"webpack -p"
+    "postinstall": "webpack -p",
+    "start":"node server.js"
   },
   "author": "chandra",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.4",
     "css-loader": "^0.28.4",
+    "express": "^4.15.4",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
