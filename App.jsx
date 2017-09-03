@@ -39,8 +39,8 @@ export default class App extends React.Component {
         bowlerScore:bowlerScores
       })
 
-
-      matchDetails.push({matchId:data[0].matchId,match:data[0].match,matchStatus:data[0].matchStatus})
+      matchDetails.push({match:data[0].match})
+      matchDetails.push({match:data[0].matchStatus})
       component.setState({
         matchDetail:matchDetails
       })
@@ -60,6 +60,9 @@ export default class App extends React.Component {
       if(this.state.batsmanScore[0].batsmanBoundaries!="None"){
         scores=
         <div>
+        <BootstrapTable data={this.state.matchDetail} bordered={ false }>
+          <TableHeaderColumn width='10%' dataField="match" isKey={true}>Match Details</TableHeaderColumn>
+        </BootstrapTable>
         <BootstrapTable data={this.state.teamScore} bordered={ false }>
           <TableHeaderColumn width='10%' dataField="team" isKey={true}>Team Scores</TableHeaderColumn>
         </BootstrapTable>

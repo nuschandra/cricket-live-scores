@@ -26,7 +26,7 @@ function Summary(props) {
 
   if(props.matchDetail.length!=0){
     matchDetails.push({match:props.matchDetail[0].match})
-    matchDetails.push({match:props.matchDetail[0].matchStatus})
+    matchDetails.push({match:props.matchDetail[1].match})
   }
 
   return(
