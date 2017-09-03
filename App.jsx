@@ -23,6 +23,12 @@ export default class App extends React.Component {
       return response.json()
     }).then(function(json){
       var data=json;
+
+      matchDetails.push({match:data[0].match})
+      matchDetails.push({match:data[0].matchStatus})
+      component.setState({
+        matchDetail:matchDetails
+      })
       batsmanScores.push({batsmanName:data[0].batsmen[0].batsmanName,batsmanRuns:data[0].batsmen[0].batsmanScore,batsmanBoundaries:data[0].batsmen[0].batsmanBoundaries,strikeRate:data[0].batsmen[0].batsmanStrikeRate})
       batsmanScores.push({batsmanName:data[0].batsmen[1].batsmanName,batsmanRuns:data[0].batsmen[1].batsmanScore,batsmanBoundaries:data[0].batsmen[1].batsmanBoundaries,strikeRate:data[0].batsmen[1].batsmanStrikeRate})
       component.setState({
@@ -39,11 +45,6 @@ export default class App extends React.Component {
         bowlerScore:bowlerScores
       })
 
-      matchDetails.push({match:data[0].match})
-      matchDetails.push({match:data[0].matchStatus})
-      component.setState({
-        matchDetail:matchDetails
-      })
 
       teamScores.push({team:data[0].teamScores.teamOne})
       if(data[0].teamScores.teamTwo!="None"){
@@ -92,7 +93,7 @@ export default class App extends React.Component {
     }
     return (
       <div>
-      <Navbar>
+      <Navbar color="primary">
         <NavbarBrand>Live Cricket Scores</NavbarBrand>
       </Navbar>
       {scores}
