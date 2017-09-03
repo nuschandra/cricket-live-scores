@@ -17,7 +17,7 @@ export default class App extends React.Component {
     var bowlerScores=[];
     var matchDetails=[];
     var teamScores=[];
-    var url='http://localhost:3000/currentScores?id='+this.matchId;
+    var url='http://cricket-api-info.herokuapp.com/currentScores?id='+this.matchId;
     fetch(url)
     .then(function(response){;
       return response.json()
