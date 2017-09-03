@@ -46,7 +46,9 @@ export default class App extends React.Component {
       })
 
       teamScores.push({team:data[0].teamScores.teamOne})
-      teamScores.push({team:data[0].teamScores.teamTwo})
+      if(data[0].teamScores.teamTwo!="None"){
+        teamScores.push({team:data[0].teamScores.teamTwo})
+      }
 
       component.setState({
         teamScore:teamScores
