@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "webpack -p",
-    "start":"webpack-dev-server --hot"
+    "start":"node server.js"
   },
   "author": "chandra",
   "license": "ISC",
