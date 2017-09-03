@@ -1,6 +1,7 @@
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Navbar,NavbarBrand} from 'reactstrap';
 import React from 'react';
+import Summary from "./Summary.jsx"
 
 export default class App extends React.Component {
 
@@ -16,7 +17,7 @@ export default class App extends React.Component {
     var bowlerScores=[];
     var matchDetails=[];
     var teamScores=[];
-    var url='https://cricket-api-info.herokuapp.com/currentScores?id='+this.matchId;
+    var url='http://localhost:3000/currentScores?id='+this.matchId;
     fetch(url)
     .then(function(response){;
       return response.json()
@@ -38,6 +39,7 @@ export default class App extends React.Component {
         bowlerScore:bowlerScores
       })
 
+
       matchDetails.push({matchId:data[0].matchId,match:data[0].match,matchStatus:data[0].matchStatus})
       component.setState({
         matchDetail:matchDetails
@@ -53,33 +55,42 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      
-      <div>
-      <Navbar>
-        <NavbarBrand>Live Cricket Scores</NavbarBrand>
-      </Navbar>
-      <h2>{this.state.matchDetail.matchStatus}</h2>
-      <BootstrapTable data={this.state.teamScore} bordered={ false }>
+    var scores=null
+    if(this.state.batsmanScore.length!=0){
+      if(this.state.batsmanScore[0].batsmanBoundaries!="None"){
+        scores=
+        <div>
+        <BootstrapTable data={this.state.teamScore} bordered={ false }>
           <TableHeaderColumn width='10%' dataField="team" isKey={true}>Team Scores</TableHeaderColumn>
-      </BootstrapTable>
+        </BootstrapTable>
       
-      <BootstrapTable data={this.state.batsmanScore} bordered={ false }>
+        <BootstrapTable data={this.state.batsmanScore} bordered={ false }>
           <TableHeaderColumn width='15%' dataField="batsmanName" isKey={true}>Batsman</TableHeaderColumn>
           <TableHeaderColumn width='10%' dataField='batsmanRuns'>Score</TableHeaderColumn>
           <TableHeaderColumn width='10%' dataField='batsmanBoundaries'>Boundaries</TableHeaderColumn>
           <TableHeaderColumn dataField='strikeRate'>Strike Rate</TableHeaderColumn>
-      </BootstrapTable>
+        </BootstrapTable>
 
-      <BootstrapTable data={this.state.bowlerScore} bordered={ false }>
+        <BootstrapTable data={this.state.bowlerScore} bordered={ false }>
           <TableHeaderColumn width='15%' dataField="bowlerName" isKey={true}>Bowler</TableHeaderColumn>
           <TableHeaderColumn width='10%' dataField='bowlerOvers'>Overs</TableHeaderColumn>
           <TableHeaderColumn width='10%' dataField='bowlerMaidens'>Maidens</TableHeaderColumn>
           <TableHeaderColumn width='10%' dataField='bowlerRuns'>Runs</TableHeaderColumn>
           <TableHeaderColumn width='10%' dataField='bowlerWickets'>Wickets</TableHeaderColumn>
           <TableHeaderColumn dataField='bowlerEco'>Economy Rate</TableHeaderColumn>
-
-      </BootstrapTable>
+        </BootstrapTable>
+        </div>
+      }
+      else{
+        scores=<Summary teamScore={this.state.teamScore} batsmanScore={this.state.batsmanScore} bowlerScore={this.state.bowlerScore} matchDetail={this.state.matchDetail}/>
+      }
+    }
+    return (
+      <div>
+      <Navbar>
+        <NavbarBrand>Live Cricket Scores</NavbarBrand>
+      </Navbar>
+      {scores}
       </div>
     );
   }
